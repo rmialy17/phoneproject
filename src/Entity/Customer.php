@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @UniqueEntity("login")
  */
 class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -28,10 +30,10 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
+    // /**
+    //  * @ORM\Column(type="json")
+    //  */
+    // private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -78,6 +80,19 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -96,24 +111,38 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->login;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    // /**
+    //  * @see UserInterface
+    //  */
+    // public function getRoles(): array
+    // {
+    //     $roles = $this->roles;
+    //     // guarantee every user at least has ROLE_USER
+    //     $roles[] = 'ROLE_USER';
+
+    //     return array_unique($roles);
+    // }
+    
+   
+
+    // public function setRoles(array $roles): self
+    // {
+    //     $this->roles = $roles;
+
+    //     return $this;
+    // } 
+    
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        // argument needed in jwt_authenticator
+        return ['ROLE_USER'];
     }
-
-    public function setRoles(array $roles): self
+   public function setRoles(string $roles): self
     {
         $this->roles = $roles;
 
         return $this;
-    }
+    } 
 
     /**
      * @see PasswordAuthenticatedUserInterface
