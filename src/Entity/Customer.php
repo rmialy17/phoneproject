@@ -36,7 +36,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private $login;
     
     /**
      * @var string The hashed password
@@ -85,7 +85,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->login;
     }
 
     /**
@@ -93,7 +93,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->login;
     }
 
     /**
@@ -162,9 +162,9 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $login): self
     {
-        $this->username = $username;
+        $this->username = $login;
 
         return $this;
     }
