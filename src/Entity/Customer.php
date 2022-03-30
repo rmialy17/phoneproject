@@ -23,6 +23,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *     shortName="Clients",
  *     collectionOperations={},
  *     itemOperations={"get"},
+ *     paginationItemsPerPage = 5,
  * )
  * @UniqueEntity(
  *     fields={"login"},
@@ -82,7 +83,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="customer")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="customer", orphanRemoval=true)
      * 
      * @Groups("customer:read")
      */
