@@ -88,6 +88,7 @@ class AppFixtures extends Fixture
             $product->setName($data2['name'][$i]);
             $product->setDescription($data2['description'][$i]);
             $product->setPrice($data2['price'][$i]);
+            $product->setCurrency('EUR');
             $product->setBrand($data2['brand'][$i]);
             $product->setCreatedAt($today);
             $manager->persist($product);
