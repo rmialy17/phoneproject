@@ -18,8 +18,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
- *     itemOperations={"get"},
+ *     itemOperations={"get","delete"={"security"="is_granted('ROLE_USER')"}},
  *     shortName="Utilisateur",
+ *     paginationItemsPerPage = 5,
  * )
  */
 class User
@@ -49,7 +50,9 @@ class User
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="cascade")
+     * @Groups({"customer:read", "user:read", "user:write"})
      */
     private $customer;
 

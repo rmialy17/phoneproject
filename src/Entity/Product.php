@@ -13,6 +13,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ApiResource(
  *     collectionOperations={"get"},
  *     itemOperations={"get"},
+ *     shortName="Produits",
+ *     paginationItemsPerPage = 5,
  * )
  */
 class Product
