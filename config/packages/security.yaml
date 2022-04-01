@@ -9,17 +9,22 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+    providers:
+        app_customer_provider:
             entity:
-                class: App\Entity\User
-                property: email
+                class: App\Entity\Customer
+                property: username
+        # jwt:
+        #     lexik_jwt:
+        #         class: App\Entity\Customer
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
+            # provider: app_customer_provider
             security: false
-        main:
-            lazy: true
-            provider: app_user_provider
+        # main:
+        #     lazy: true
+        #     provider: app_user_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -27,11 +32,55 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+        login:
+            pattern:  ^/api/login
+            # provider: jwt
+            provider: app_customer_provider
+            stateless: true
+            # anonymous: true
+            # username_path: login
+            # password_path: password
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern:   ^/api
+            # provider: jwt
+            stateless: true
+            # methods: [POST]
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        
+        # users:
+        #     pattern:   ^/api/users
+        #     methods: [POST, PUT, PATCH, DELETE]
+        #     stateless: true
+        #     guard:
+        #         authenticators:
+        #             - lexik_jwt_authentication.jwt_token_authenticator
+
+        # products:
+        #     pattern:   ^/api/products
+        #     stateless: true
+        #     guard:
+        #         authenticators:
+        #             - lexik_jwt_authentication.jwt_token_authenticator
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #  - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api/users,       roles: IS_AUTHENTICATED_FULLY }
+        #  - { path: ^/api/products,       roles: IS_AUTHENTICATED_FULLY }
+        # #   - { path: ^/api/customers, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #   - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [POST, PUT, PATCH, DELETE]}
+        #   - { path: ^/api/products, roles: IS_AUTHENTICATED_ANONYMOUSLY}
 
 when@test:
     security:

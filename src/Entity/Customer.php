@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *     paginationItemsPerPage = 5,
  * )
  * @UniqueEntity(
- *     fields={"login"},
+ *     fields={"username"},
  *     message="Cet identifiant est déjà utilisé."
  * )
  */
@@ -52,10 +52,10 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
-    // /**
-    //  * @ORM\Column(type="array")
-    //  */
-    // private $roles = [];
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -65,7 +65,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Groups("customer:read")
      */
-    private $login;
+    private $username;
     
     /**
      * @var string The hashed password
@@ -114,17 +114,17 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
+    // public function getUsername(): ?string
+    // {
+    //     return $this->username;
+    // }
 
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
+    // public function setUsername(string $username): self
+    // {
+    //     $this->login = $username;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * A visual identifier that represents this user.
@@ -133,7 +133,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->login;
+        return (string) $this->username;
     }
 
     /**
@@ -141,7 +141,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->login;
+        return (string) $this->username;
     }
 
     /**
@@ -213,9 +213,9 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUsername(string $login): self
+    public function setUsername(string $username): self
     {
-        $this->username = $login;
+        $this->username = $username;
 
         return $this;
     }
