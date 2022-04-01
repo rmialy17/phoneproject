@@ -23,19 +23,19 @@ class AppFixtures extends Fixture
         $today = new \DateTime();
 
         $customer1 = new Customer();
-        $customer1->setLogin("MobilePhoneandCo");
+        $customer1->setUsername("MobilePhoneandCo");
         $customer1->setPassword($this->passwordHasher->hashPassword($customer1, "000000000000MobilePhone?#"));
         $customer1->setEmail("mobilephoneandco@gmail.com");
         $customer1->setCreatedAt($today);
-        // $customer1->setRoles('ROLE_USER');
+        $customer1->setRoles([]);
         $manager->persist($customer1);
 
         $customer2 = new Customer();
-        $customer2->setLogin("PhoneCompany");
+        $customer2->setUsername("PhoneCompany");
         $customer2->setPassword($this->passwordHasher->hashPassword($customer2, "111111111111PhoneCompany?#"));
         $customer2->setEmail("phone.company@gmail.com");
         $customer2->setCreatedAt($today);
-        // $customer2->setRoles('ROLE_USER');
+        $customer2->setRoles([]);
         $manager->persist($customer2);
 
         $manager->flush();
