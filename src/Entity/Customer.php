@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
@@ -21,7 +22,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ApiResource(
  *     normalizationContext={"groups"={"customer:read"}},
  *     shortName="Clients",
- *     collectionOperations={},
+ *     collectionOperations={""},
  *     itemOperations={"get"},
  *     paginationItemsPerPage = 5,
  * )
@@ -100,6 +101,11 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
+
+    // public function setId(?int $id): self{
+    //     $this->id = $id;
+    //     return $this;
+    // }
 
     public function getEmail(): ?string
     {
@@ -249,5 +255,11 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    // public static function createFromPayload($id, array $payload){
+    //     $client = new Customer();
+    //     $client->setId($id)->setUsername($payload['username']);
+    //     return $client;
+    // }
 }
 
