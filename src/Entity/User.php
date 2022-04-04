@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +20,35 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
- *     itemOperations={"get","delete"={"security"="is_granted('ROLE_USER')"}},
+ *     collectionOperations={
+ *          "get"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *              }
+ *         },
+ *         "post"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *              }
+ *         }
+ *     },
+ *     itemOperations={
+ *         "put"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *             }
+ *         },
+ *         "delete"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *             }
+ *         },
+ *         "get"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *             }
+ *         }
+ *     },
  *     shortName="Utilisateur",
  *     paginationItemsPerPage = 5,
  * )

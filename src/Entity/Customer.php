@@ -21,25 +21,27 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  * @ApiResource(
  *     normalizationContext={"groups"={"customer:read"}},
- *     shortName="Clients",
- *     collectionOperations={""},
- *     itemOperations={"get"},
+ *     collectionOperations={},
+ *     itemOperations={
+ *         "get"={
+ *             "openapi_context"={
+ *                  "security"={{"bearerAuth"={}}}
+ *             }
+ *         }
+ *     },
  *     paginationItemsPerPage = 5,
- * )
- * @UniqueEntity(
- *     fields={"username"},
- *     message="Cet identifiant est déjà utilisé."
+ *     shortName="Clients",
  * )
  */
 class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
+     * @ApiProperty(identifier=false)
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ApiProperty(identifier=false)
      * 
-     * @Groups("customer:read")
+     * @Groups("customer:read","user:read")
      */
     private $id;
 
@@ -58,11 +60,11 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
-    /**
+    /**     
+     * @ApiProperty(identifier=true)
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(min=3)
-     * @ApiProperty(identifier=true)
      * 
      * @Groups("customer:read")
      */
@@ -86,7 +88,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="customer", orphanRemoval=true)
      * 
-     * @Groups("customer:read")
+     * @Groups("customer:read","user:read")
      */
     private $users;
 
@@ -102,10 +104,10 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    // public function setId(?int $id): self{
-    //     $this->id = $id;
-    //     return $this;
-    // }
+    public function setId(?int $id): self{
+        $this->id = $id;
+        return $this;
+    }
 
     public function getEmail(): ?string
     {
@@ -120,14 +122,14 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
-    // public function getUsername(): ?string
-    // {
-    //     return $this->username;
-    // }
+    public function getUsername(): ?string
+    {
+        return(string) $this->username;
+    }
 
     // public function setUsername(string $username): self
     // {
-    //     $this->login = $username;
+    //     $this->username = $username;
 
     //     return $this;
     // }
@@ -139,16 +141,16 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
-    }
+    // /**
+    //  * @deprecated since Symfony 5.3, use getUserIdentifier instead
+    //  */
+    // public function getUsername(): string
+    // {
+    //     return (string) $this->username;
+    // }
 
     /**
      * @see UserInterface
@@ -219,12 +221,12 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
+    // public function setUsername(string $username): self
+    // {
+    //     $this->username = $username;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection|User[]
@@ -257,9 +259,9 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     // public static function createFromPayload($id, array $payload){
-    //     $client = new Customer();
-    //     $client->setId($id)->setUsername($payload['username']);
-    //     return $client;
+    //     $customer = new Customer();
+    //     $customer->setId($id)->setUsername($payload['username']);
+    //     return $customer;
     // }
 }
 
