@@ -47,7 +47,7 @@ security:
 
         api:
             pattern:   ^/api
-            # provider: jwt
+            provider: app_customer_provider
             stateless: true
             # methods: [POST]
             # methods: [POST, PUT, PATCH, DELETE]
@@ -55,29 +55,30 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
         
-        # users:
-        #     pattern:   ^/api/users
+        # 
+
+        # clients:
+        #     pattern:   ^/api/clients
+        #     provider: app_customer_provider
+        #     stateless: true
+        #     guard:
+        #         authenticators:
+        #             - lexik_jwt_authentication.jwt_token_authenticator
+
+    # Easy way to control acclients:
+        #     pattern:   ^/api/clients
         #     methods: [POST, PUT, PATCH, DELETE]
         #     stateless: true
         #     guard:
         #         authenticators:
-        #             - lexik_jwt_authentication.jwt_token_authenticator
-
-        # products:
-        #     pattern:   ^/api/products
-        #     stateless: true
-        #     guard:
-        #         authenticators:
-        #             - lexik_jwt_authentication.jwt_token_authenticator
-
-    # Easy way to control access for large sections of your site
+        #             - lexik_jwt_authentication.jwt_token_authenticatorcess for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
           - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
           - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
-        #   - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, }
+        #   - { path: ^/api/clients, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
 
 
 when@test:
