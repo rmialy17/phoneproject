@@ -55,7 +55,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
         // our own post operation to explain the api/login parameters we need
         $pathItemLogin = new PathItem(null, null, null, null, null, $operationToken);
 
-        $openApi->getPaths()->addPath('/api/login_check', $pathItemLogin);
+        $openApi->getPaths()->addPath('/api/login', $pathItemLogin);
 
         return $openApi;
     }
@@ -90,6 +90,10 @@ class OpenApiFactory implements OpenApiFactoryInterface
                     'password' => [
                         'type' => 'string',
                         'example' => '111111111111PhoneCompany?#'
+                    ],
+                    'customer' => [
+                        'type' => 'string',
+                        'example' => '/api/customers/PhoneCompany'
                     ]
 
                 ]

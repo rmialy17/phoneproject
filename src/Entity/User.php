@@ -26,17 +26,51 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *                  "security"={{"bearerAuth"={}}}
  *              }
  *         },
- *         "post"={
- *             "openapi_context"={
- *                  "security"={{"bearerAuth"={}}}
- *              }
- *         }
+ *        "post": {
+ *             "method": "POST",
+ *             "access_control": "is_granted('ROLE_USER', object)",
+ *             "openapi_context": {
+ *                 "security"={{"bearerAuth"={}}},
+ *                 "requestBody": {
+ *                     "content": {
+ *                         "application/ld+json": {
+ *                             "schema": {
+ *                                 "type": "object",
+ *                                 "properties": {
+ *                                     "email": {"type": "string", "example": "user@example.com"},
+ *                                     "customer": {"type": "string", "example": "/api/customers/PhoneCompany"},
+ *                                     "firstName": {"type": "string", "example": "Charles"},
+ *                                     "lastName": {"type": "string", "example": "Dubois"},
+ *                                 },
+ *                             },
+ *                         },
+ *                     },
+ *                 },
+ *             },
+ *         },
  *     },
  *     itemOperations={
  *         "put"={
- *             "openapi_context"={
- *                  "security"={{"bearerAuth"={}}}
- *             }
+ *             "method": "PUT",
+ *             "access_control": "is_granted('ROLE_USER', object)",
+ *             "openapi_context": {
+ *                 "security"={{"bearerAuth"={}}},
+ *                 "requestBody": {
+ *                     "content": {
+ *                         "application/ld+json": {
+ *                             "schema": {
+ *                                 "type": "object",
+ *                                 "properties": {
+ *                                     "email": {"type": "string", "example": "user@example.com"},
+ *                                     "customer": {"type": "string", "example": "/api/customers/PhoneCompany"},
+ *                                     "firstName": {"type": "string", "example": "Charles"},
+ *                                     "lastName": {"type": "string", "example": "Dubois"},
+ *                                 },
+ *                             },
+ *                         },
+ *                     },
+ *                 },
+ *             },
  *         },
  *         "delete"={
  *             "openapi_context"={
@@ -50,7 +84,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         }
  *     },
  *     shortName="Utilisateur",
- *     paginationItemsPerPage = 5,
+ *     paginationItemsPerPage = 5
  * )
  * 
  * @Cache(expires="tomorrow", public=true)
