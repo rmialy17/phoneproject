@@ -49,8 +49,7 @@ security:
             pattern:   ^/api
             provider: app_customer_provider
             stateless: true
-            # methods: [POST]
-            # methods: [POST, PUT, PATCH, DELETE]
+            methods: [POST, PUT, PATCH, DELETE]
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator

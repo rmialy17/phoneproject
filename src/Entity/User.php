@@ -102,6 +102,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      * @Assert\Email(
      *     message = "Cet email est invalide."
      * )
@@ -118,12 +119,20 @@ class User
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
+     * @Assert\IsFalse(
+     *     message = "You've entered an invalid state. Example : /api/customers/CompanyName"
+     * )
      * @Groups({"customer:read", "user:read", "user:write"})
      */
     private $customer;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long"
+     * )
      * 
      * @Groups({"customer:read", "user:read", "user:write"})
      */
@@ -131,6 +140,11 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long"
+     * )
      * @Groups({"customer:read", "user:read", "user:write"})
      */
     private $lastName;
