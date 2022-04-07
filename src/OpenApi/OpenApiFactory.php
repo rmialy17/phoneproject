@@ -55,7 +55,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
         // our own post operation to explain the api/login parameters we need
         $pathItemLogin = new PathItem(null, null, null, null, null, $operationToken);
 
-        $openApi->getPaths()->addPath('/api/login', $pathItemLogin);
+        $openApi->getPaths()->addPath('/api/login_check', $pathItemLogin);
 
         return $openApi;
     }

@@ -78,6 +78,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *             }
  *         },
  *         "get"={
+ *             "access_control": "is_granted('ROLE_USER', object)",
  *             "openapi_context"={
  *                  "security"={{"bearerAuth"={}}}
  *             }
