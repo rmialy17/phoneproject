@@ -91,11 +91,6 @@ class OpenApiFactory implements OpenApiFactoryInterface
                         'type' => 'string',
                         'example' => '111111111111PhoneCompany?#'
                     ],
-                    'customer' => [
-                        'type' => 'string',
-                        'example' => '/api/customers/PhoneCompany'
-                    ]
-
                 ]
             ]
         );

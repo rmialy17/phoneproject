@@ -88,7 +88,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     paginationItemsPerPage = 5
  * )
  * 
- * @Cache(expires="tomorrow", public=true)
  */
 class User
 {
