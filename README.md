@@ -2,8 +2,9 @@
 
 ## Objectifs
 
-Création d'un site collaboratif pour faire connaître les figures de snowboard.
-Environnement de développement
+Création d'une API permettant à toutes les plateformes d'accéder au catalogue des produits BileMo.
+
+## Environnement de développement
 - Symfony 5
 -	Composer 2.1.9
 -	WampServer 3.2.3.3
