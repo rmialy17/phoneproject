@@ -26,9 +26,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *                  "security"={{"bearerAuth"={}}}
  *              }
  *         },
- *        "post": {
+ *        "post"={
  *             "method": "POST",
- *             "access_control": "is_granted('ROLE_USER', object)",
+ *             "access_control": "is_granted('ROLE_USER', object or object.username == user.customer.username  )",
  *             "openapi_context": {
  *                 "security"={{"bearerAuth"={}}},
  *                 "requestBody": {
@@ -38,7 +38,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *                                 "type": "object",
  *                                 "properties": {
  *                                     "email": {"type": "string", "example": "user@example.com"},
- *                                     "customer": {"type": "string", "example": "/api/customers/PhoneCompany"},
+ *                                     "customer": {"type": "string", "example": "/api/clients/PhoneCompany"},
  *                                     "firstName": {"type": "string", "example": "Charles"},
  *                                     "lastName": {"type": "string", "example": "Dubois"},
  *                                 },
@@ -62,7 +62,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *                                 "type": "object",
  *                                 "properties": {
  *                                     "email": {"type": "string", "example": "user@example.com"},
- *                                     "customer": {"type": "string", "example": "/api/customers/PhoneCompany"},
+ *                                     "customer": {"type": "string", "example": "/api/clients/PhoneCompany"},
  *                                     "firstName": {"type": "string", "example": "Charles"},
  *                                     "lastName": {"type": "string", "example": "Dubois"},
  *                                 },
@@ -119,10 +119,8 @@ class User
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
-     * @Assert\IsFalse(
-     *     message = "You've entered an invalid state. Example : /api/customers/CompanyName"
-     * )
-     * @Groups({"customer:read", "user:read", "user:write"})
+     * 
+     * @Groups({"customer:read", "user:read"})
      */
     private $customer;
 
