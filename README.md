@@ -28,6 +28,8 @@ Création d'une API permettant à toutes les plateformes d'accéder au catalogue
 5.	Dans votre terminal effectuer la commande :
  > php bin/console server:start
 
-6.	Dans votre navigateur, rendez vous sur http://127.0.0.1:8000/api 
+6.	Dans votre navigateur, rendez vous sur http://127.0.0.1:8000/api
+
+N.B. Pour vous authentifier sur l'application, vous trouverez les mots de passe des clients de démo dans le fichier AppFixtures.php
 
 Le projet est à présent installé, vous pouvez commencer à l'utiliser.
