@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -13,8 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
@@ -144,13 +141,6 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    // /**
-    //  * @deprecated since Symfony 5.3, use getUserIdentifier instead
-    //  */
-    // public function getUsername(): string
-    // {
-    //     return (string) $this->username;
-    // }
 
     /**
      * @see UserInterface
@@ -221,12 +211,6 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public function setUsername(string $username): self
-    // {
-    //     $this->username = $username;
-
-    //     return $this;
-    // }
 
     /**
      * @return Collection|User[]
@@ -258,10 +242,5 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public static function createFromPayload($id, array $payload){
-    //     $customer = new Customer();
-    //     $customer->setId($id)->setUsername($payload['username']);
-    //     return $customer;
-    // }
 }
 
