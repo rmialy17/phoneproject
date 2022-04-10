@@ -120,7 +120,7 @@ class User
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      * 
-     * @Groups({"customer:read", "user:read"})
+     * @Groups({"customer:read", "user:read", "user:write"})
      */
     private $customer;
 
