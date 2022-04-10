@@ -45,6 +45,8 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"product:read"})
      */
     private $name;
 
